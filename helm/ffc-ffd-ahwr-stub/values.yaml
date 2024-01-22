@@ -1,9 +1,9 @@
 environment: production
 environmentCode:
-name: ffc-template-node
-namespace: ffc-demo
-workstream: ffc-demo
-image: ffc-template-node
+name: ffc-ffd-ahwr-stub
+namespace: ffc-ffd
+workstream: ffc-ffd
+image: ffc-ffd-ahwr-stub
 
 labels:
   component: service
@@ -12,24 +12,31 @@ appInsights:
   connectionString:
 
 containerConfigMap:
-  name: ffc-template-node-config-map
+  name: ffc-ffd-ahwr-stub-config-map
 
 containerSecret:
-  name: ffc-template-node-container-secret
+  name: ffc-ffd-ahwr-stub-container-secret
   type: Opaque
 
-deployment: {}
+deployment:
+  priorityClassName: high
+
+ingress:
+  class: nginx
+  endpoint: ffc-ffd-ahwr-stub
+  server: example.com
 
 container:
   requestMemory: 100Mi
   requestCpu: 100m
   limitMemory: 100Mi
   limitCpu: 100m
-  port: 3000
+  port: 4000
+  authHost: ffc-ffd-auth
 
 livenessProbe:
   path: /healthz
-  port: 3000
+  port: 4000
   initialDelaySeconds: 20
   periodSeconds: 10
   failureThreshold: 3
@@ -37,7 +44,7 @@ livenessProbe:
 
 readinessProbe:
   path: /healthy
-  port: 3000
+  port: 4000
   initialDelaySeconds: 30
   periodSeconds: 10
   failureThreshold: 3

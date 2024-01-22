@@ -1,0 +1,23 @@
+{{- include "ffc-helm-library.azure-ingress" (list . "ffc-ffd-ahwr-stub.ingress") -}}
+{{- define "ffc-ffd-ahwr-stub.ingress" -}}
+{{- if not .Values.pr -}}
+metadata:
+  annotations:
+    nginx.org/mergeable-ingress-type: minion
+{{- else -}}
+metadata:
+  annotations:
+spec:
+  rules:
+  - host: {{ .Values.name }}-{{ .Values.pr }}.{{ .Values.ingress.server }}
+    http:
+      paths:
+      - path: {{ .Values.ingress.path }}
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.name }}
+            port:
+              number: 80
+{{- end -}}
+{{- end -}}

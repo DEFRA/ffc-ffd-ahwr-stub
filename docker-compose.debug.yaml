@@ -1,3 +1,3 @@
 services:
-  ffc-template-node:
+  ffc-ffd-ahwr-stub:
     command: npm run start:debug

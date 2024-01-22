@@ -2,11 +2,11 @@
 # that test output is saved to the host
 
 services:
-  ffc-template-node:
+  ffc-ffd-ahwr-stub:
     build:
       target: development
-    image: ffc-template-node-development
-    container_name: ffc-template-node-test
+    image: ffc-ffd-ahwr-stub-development
+    container_name: ffc-ffd-ahwr-stub-test
     command: npm run test
     volumes:
       - ./app:/home/node/app

@@ -1,0 +1,9 @@
+{{- include "ffc-helm-library.container-config-map" (list . "ffc-ffd-ahwr-stub.config-map") -}}
+{{- define "ffc-ffd-ahwr-stub.config-map" -}}
+data:
+  NODE_ENV: {{ quote .Values.environment }}
+  PORT: {{ quote .Values.container.port }}
+  APPINSIGHTS_CLOUDROLE: {{ quote .Values.name }}
+  AUTH_HOST: http://{{ .Values.container.authHost }}.{{ .Values.namespace }}
+  GATEWAY_HOST: https://{{ .Values.ingress.endpoint }}.{{ .Values.ingress.server }}
+{{- end -}}
