@@ -6,7 +6,18 @@ const schema = Joi.object().keys({
   env: Joi.string().valid(DEVELOPMENT, TEST, PRODUCTION).default(DEVELOPMENT),
   serviceName: Joi.string().default('Annual Health and Welfare Review'),
   authHost: Joi.string().required(),
-  gatewayHost: Joi.string().required()
+  gatewayHost: Joi.string().required(),
+  cookiePassword: Joi.string().required(),
+  cookieOptions: Joi.object({
+    ttl: Joi.number().default(1000 * 60 * 60 * 24), // 24 hours
+    encoding: Joi.string().default('none'),
+    isSameSite: Joi.string().valid('Lax').default('Lax'),
+    isSecure: Joi.bool().default(true),
+    isHttpOnly: Joi.bool().default(true),
+    clearInvalid: Joi.bool().default(false),
+    strictHeader: Joi.bool().default(true),
+    path: Joi.string().default('/')
+  })
 })
 
 const config = {
@@ -14,7 +25,17 @@ const config = {
   env: process.env.NODE_ENV,
   serviceName: process.env.SERVICE_NAME,
   authHost: process.env.AUTH_HOST,
-  gatewayHost: process.env.GATEWAY_HOST
+  gatewayHost: process.env.GATEWAY_HOST,
+  cookiePassword: process.env.COOKIE_PASSWORD,
+  cookieOptions: {
+    ttl: process.env.AUTH_COOKIE_TTL,
+    encoding: process.env.AUTH_COOKIE_ENCODING,
+    isSameSite: process.env.AUTH_COOKIE_SAME_SITE,
+    isSecure: process.env.NODE_ENV === PRODUCTION,
+    isHttpOnly: process.env.AUTH_COOKIE_HTTP_ONLY,
+    clearInvalid: process.env.AUTH_COOKIE_CLEAR_INVALID,
+    strictHeader: process.env.AUTH_COOKIE_STRICT_HEADER
+  }
 }
 
 const { error, value } = schema.validate(config)

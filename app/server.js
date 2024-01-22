@@ -14,7 +14,16 @@ const createServer = async () => {
     },
     router: {
       stripTrailingSlash: true
-    }
+    },
+    cache: [{
+      name: 'session',
+      provider: {
+        constructor: require('@hapi/catbox-memory'),
+        options: {
+          partition: 'session-cache'
+        }
+      }
+    }]
   })
 
   server.validator(Joi)
@@ -26,6 +35,7 @@ const createServer = async () => {
   await server.register(require('./plugins/errors'))
   await server.register(require('./plugins/crumb'))
   await server.register(require('./plugins/logging'))
+  await server.register(require('./plugins/session'))
   if (serverConfig.isDev) {
     await server.register(require('blipp'))
   }

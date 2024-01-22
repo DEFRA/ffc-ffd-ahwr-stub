@@ -9,7 +9,7 @@ services:
     container_name: ffc-ffd-ahwr-stub-development
     ports:
       - "4000:4000"
-      - "9001:9229"
+      - "9100:9229"
     volumes:
       - ./app:/home/node/app
       - ./package.json:/home/node/package.json
