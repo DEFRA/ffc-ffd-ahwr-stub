@@ -11,9 +11,8 @@ module.exports = {
           const statusCode = response.output.statusCode
 
           if (statusCode === 401) {
-            request.yar.set('redirect', request.url.path)
-            console.log(request.url)
-            return h.redirect(`${serverConfig.gatewayHost}/auth/sign-in?redirect=${request.url.host}/auth/sign-in`)
+            request.yar.set('redirect', request.url.pathname)
+            return h.redirect(`${serverConfig.gatewayHost}/auth/sign-in?redirect=${request.url.protocol}//${request.url.host}/auth/sign-in`)
           }
 
           if (statusCode === 403) {
