@@ -2,11 +2,9 @@ const Joi = require('joi')
 const { DEVELOPMENT, TEST, PRODUCTION } = require('../constants/environments')
 
 const schema = Joi.object().keys({
-  port: Joi.number().default(4000),
+  port: Joi.number().default(3010),
   env: Joi.string().valid(DEVELOPMENT, TEST, PRODUCTION).default(DEVELOPMENT),
   serviceName: Joi.string().default('Annual Health and Welfare Review'),
-  authHost: Joi.string().required(),
-  gatewayHost: Joi.string().required(),
   cookiePassword: Joi.string().required(),
   cookieOptions: Joi.object({
     ttl: Joi.number().default(1000 * 60 * 60 * 24), // 24 hours
@@ -24,8 +22,6 @@ const config = {
   port: process.env.PORT,
   env: process.env.NODE_ENV,
   serviceName: process.env.SERVICE_NAME,
-  authHost: process.env.AUTH_HOST,
-  gatewayHost: process.env.GATEWAY_HOST,
   cookiePassword: process.env.COOKIE_PASSWORD,
   cookieOptions: {
     ttl: process.env.AUTH_COOKIE_TTL,

@@ -8,7 +8,7 @@ services:
     image: ffc-ffd-ahwr-stub-development
     container_name: ffc-ffd-ahwr-stub-development
     ports:
-      - "4000:4000"
+      - "3010:3010"
       - "9100:9229"
     volumes:
       - ./app:/home/node/app

@@ -1,5 +1,3 @@
-const { serverConfig } = require('../config')
-
 module.exports = {
   plugin: {
     name: 'error-pages',
@@ -12,7 +10,7 @@ module.exports = {
 
           if (statusCode === 401) {
             request.yar.set('redirect', request.url.pathname)
-            return h.redirect(`${serverConfig.gatewayHost}/auth/sign-in?redirect=${request.url.protocol}//${request.url.host}/auth/sign-in`)
+            return h.redirect('/sign-in')
           }
 
           if (statusCode === 403) {

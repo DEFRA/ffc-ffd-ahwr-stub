@@ -31,12 +31,18 @@ container:
   requestCpu: 100m
   limitMemory: 100Mi
   limitCpu: 100m
-  port: 4000
-  authHost: ffc-ffd-auth
+  port: 3010
+  defraIdEnabled: true
+  defraIdWellKnownUrl: not-a-real-url
+  defraIdClientId: not-a-real-clientID
+  defraIdClientSecret: not-a-real-clientSecret
+  defraIdServiceId: not-a-real-serviceID
+  defraIdPolicy: not-a-real-policy
+  defraIdRedirectUrl: sign-in-oidc
 
 livenessProbe:
   path: /healthz
-  port: 4000
+  port: 3010
   initialDelaySeconds: 20
   periodSeconds: 10
   failureThreshold: 3
@@ -44,7 +50,7 @@ livenessProbe:
 
 readinessProbe:
   path: /healthy
-  port: 4000
+  port: 3010
   initialDelaySeconds: 30
   periodSeconds: 10
   failureThreshold: 3
